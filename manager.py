@@ -2,11 +2,9 @@ from typing import List
 
 import cars
 from driver import Driver
-from navigator import navigator
 
 
 class Manager:
-
     instance = None
 
     def __new__(cls, *args, **kwargs):
@@ -16,13 +14,14 @@ class Manager:
             instance = super().__new__(Manager)
             return instance
 
-    def __init__(self):
+    def __init__(self, navigator):
         if Manager.instance:
             pass
         else:
             self.clients = []
             self.drivers = []
             self.active_drivers: List[Driver] = []
+            self.navigator = navigator
             Manager.instance = self
 
     def move_driver_to_active(self, driver: Driver):
@@ -32,6 +31,15 @@ class Manager:
         self.active_drivers.remove(driver)
 
     def looking_for_car(self, destination: str, desired_car_class: cars.CarClass):
+        """Returns the closest driver to destination with specified car class"""
         # TODO: when driver is found, should it be set to inactive?
-        return min([driver for driver in self.active_drivers if driver.car.car_class == desired_car_class],
-                   key=lambda driver: abs(navigator[driver.current_location[0]] - navigator[destination]))
+        # TODO: what if several drivers are ok?
+        driver = min([driver for driver in self.active_drivers if driver.car.car_class == desired_car_class],
+                     key=lambda driver: self.navigator.calculate_distance(driver.current_location, destination))
+        if not driver:
+            raise DriverNotFound
+        return driver
+
+
+class DriverNotFound(Exception):
+    pass

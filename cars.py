@@ -5,7 +5,8 @@ from driver import Driver
 
 class CarClass(Enum):
     Luxury = 1
-    Econom = 2
+    Business = 2
+    Economy = 3
 
 
 class Color(Enum):
@@ -30,19 +31,3 @@ class PrivateCar(Car):
     def __init__(self, plate_number: str, car_class: CarClass, model: str, color: Color, owner: Driver):
         super().__init__(plate_number, car_class, model, color)
         self.owner = owner
-
-
-# Not used
-# class CompanyCar(Car):
-#
-#     def __init__(self, plate_number: str, car_class: CarClass, price: float):
-#         super().__init__(plate_number, car_class)
-#         self.driver = None
-#         self.price = price
-#
-#     def assign_to_driver(self, driver: Driver):
-#         self.driver = driver
-#         if self.driver.cars:
-#             self.driver.cars.append(self)
-#         else:
-#             self.driver.cars = [self]

@@ -2,7 +2,6 @@ from enum import Enum
 from random import choice
 
 import cars
-from navigator import navigator
 from user import User
 
 
@@ -32,5 +31,5 @@ class Driver(User):
 
     @property
     def current_location(self):
-        random_address = choice(list(navigator.keys()))
-        return random_address, navigator[random_address]
+        random_address = choice(self.manager.navigator.get_all_addresses())
+        return random_address
