@@ -1,37 +1,35 @@
+import json
+import os
+
+maps_path = 'maps'
+
+
 class Navigator:
 
-    city = None
-
-    map = {
-        'Address1': 4434,
-        'Address2': 7347,
-        'Address3': 2424,
-        'Address4': 5742,
-        'Address5': 7434,
-        'Address6': 6553,
-    }
-
     def __init__(self, city):
-        Navigator.city = city
+        self.city = city
+        self.map = self.download_map()
 
-    @classmethod
-    def calculate_distance(cls, location1, location2):
-        return abs(cls.map[location1] - cls.map[location2])
+    def download_map(self):
+        map_file_path = os.path.join(maps_path, f'{self.city}.json')
+        with open(map_file_path, 'r') as f:
+            return json.load(f)
 
-    @classmethod
-    def add_new_location(cls, address, coordinates):
-        cls.map[address] = coordinates
+    def calculate_distance(self, location1, location2):
+        return abs(self.map[location1] - self.map[location2])
 
-    @classmethod
-    def get_coordinates(cls, address):
+    def add_new_location(self, address, coordinates):
+        # TODO: should be added to file as well
+        self.map[address] = coordinates
+
+    def get_coordinates(self, address):
         try:
-            return cls.map[address]
+            return self.map[address]
         except KeyError:
-            raise AddressNotFound(f"{address} is not present for {cls.city}")
+            raise AddressNotFound(f"{address} is not present for {self.city}")
 
-    @classmethod
-    def get_all_addresses(cls):
-        return list(cls.map.keys())
+    def get_all_addresses(self):
+        return list(self.map.keys())
 
 
 class AddressNotFound(Exception):

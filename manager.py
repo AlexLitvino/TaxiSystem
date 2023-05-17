@@ -21,7 +21,7 @@ class Manager:
             self.clients = []
             self.drivers = []
             self.active_drivers: List[Driver] = []
-            self.navigator = navigator
+            self._navigator = navigator
             Manager.instance = self
 
     def move_driver_to_active(self, driver: Driver):
@@ -35,7 +35,7 @@ class Manager:
         # TODO: when driver is found, should it be set to inactive?
         # TODO: what if several drivers are ok?
         driver = min([driver for driver in self.active_drivers if driver.car.car_class == desired_car_class],
-                     key=lambda driver: self.navigator.calculate_distance(driver.current_location, destination))
+                     key=lambda driver: self._navigator.calculate_distance(driver.current_location, destination))
         if not driver:
             raise DriverNotFound
         return driver

@@ -31,5 +31,6 @@ class Driver(User):
 
     @property
     def current_location(self):
-        random_address = choice(self.manager.navigator.get_all_addresses())
+        # temporary solution with getting addresses from manager
+        random_address = choice(self.manager._navigator.get_all_addresses())
         return random_address

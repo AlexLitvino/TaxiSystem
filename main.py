@@ -4,7 +4,7 @@ from manager import Manager
 from driver import Driver
 from navigator import Navigator
 
-navigator = Navigator("Kharkiv")
+navigator = Navigator("kharkiv")
 manager = Manager(navigator)  # creating manager to rule them all
 
 # creating drivers
