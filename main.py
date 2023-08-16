@@ -22,6 +22,8 @@ driver3.look_for_order()
 
 # creating client
 client1 = Client(manager, 'Olga', 1995)
+client2 = Client(manager, 'Igor', 2000)
 
 # Flow
-client1.make_order("Address1", CarClass.Economy)
+client1.make_order("Address1", CarClass.Economy)  # nominal case
+client2.make_order("Unknown address", CarClass.Economy)  # client orders taxi for unknown location

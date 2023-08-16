@@ -1,6 +1,7 @@
 import random
 
 import user
+from navigator import AddressNotFound
 
 
 class Client(user.User):
@@ -18,6 +19,12 @@ class Client(user.User):
         pass
 
     def make_order(self, destination, car_class):
-        found_driver = self.manager.looking_for_car(destination, car_class)
-        print(f"{found_driver.name} will be in {random.randint(4, 9)} minutes\n"
-              f"{found_driver.car.color.name} {found_driver.car.model} {found_driver.car.plate_number}")
+        try:
+            found_driver = self.manager.looking_for_car(destination, car_class)
+            if found_driver:
+                print(f"{found_driver.name} will be in {random.randint(4, 9)} minutes\n"
+                      f"{found_driver.car.color.name} {found_driver.car.model} {found_driver.car.plate_number}")
+            else:
+                print("No driver was found:(")
+        except AddressNotFound as e:
+            print(e)

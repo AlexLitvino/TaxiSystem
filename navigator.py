@@ -16,9 +16,9 @@ class Navigator:
             return json.load(f)
 
     def calculate_distance(self, location1, location2):
-        return abs(self.map[location1] - self.map[location2])
+        return abs(self.get_coordinates(location1) - self.get_coordinates(location2))
 
-    def add_new_location(self, address, coordinates):
+    def add_location(self, address, coordinates):
         # TODO: should be added to file as well
         self.map[address] = coordinates
 
@@ -30,6 +30,9 @@ class Navigator:
 
     def get_all_addresses(self):
         return list(self.map.keys())
+
+    def is_location_exist(self, location):
+        return location in self.map
 
 
 class AddressNotFound(Exception):
