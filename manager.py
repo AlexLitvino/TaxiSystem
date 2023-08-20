@@ -32,14 +32,17 @@ class Manager:
 
     def looking_for_car(self, destination: str, desired_car_class: cars.CarClass):
         """Returns the closest driver to destination with specified car class"""
-        # TODO: when driver is found, should it be set to inactive?
         # TODO: what if several drivers are ok?
         driver = min([driver for driver in self.active_drivers if driver.car.car_class == desired_car_class],
                      key=lambda driver: self._navigator.calculate_distance(driver.current_location, destination),
                      default=None)
         if not driver:
             raise DriverNotFound
+        driver.take_order()
         return driver
+
+    def get_active_drivers(self):
+        return self.active_drivers
 
 
 class DriverNotFound(Exception):

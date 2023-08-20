@@ -1,3 +1,5 @@
+"""Example of TaxiSystem usage"""
+
 from cars import CarClass, Color
 from client import Client
 from manager import Manager
@@ -7,7 +9,7 @@ from navigator import Navigator
 navigator = Navigator("kharkiv")
 manager = Manager(navigator)  # creating manager to rule them all
 
-# creating drivers
+# creating drivers (create driver, add car for him and set him to searching for orders)
 driver1 = Driver(manager, name='John', date_of_birth=1974, licence_number='QQ324232')
 driver1.add_car(plate_number='QW464', car_class=CarClass.Economy, model='Lanos', color=Color.BLUE)
 driver1.look_for_order()
@@ -24,6 +26,23 @@ driver3.look_for_order()
 client1 = Client(manager, 'Olga', 1995)
 client2 = Client(manager, 'Igor', 2000)
 
-# Flow
-client1.make_order("Address1", CarClass.Economy)  # nominal case
-client2.make_order("Unknown address", CarClass.Economy)  # client orders taxi for unknown location
+
+# Application flow
+
+# Show active drivers before any orders
+for driver in manager.get_active_drivers():
+    print(driver)
+print()
+
+# Make order for existing address
+client1.make_order("Address1", CarClass.Economy)
+print()
+
+# Make order for unknown address
+client2.make_order("Unknown address", CarClass.Economy)
+print()
+
+# Show active drivers after making orders
+for driver in manager.get_active_drivers():
+    print(driver)
+print()

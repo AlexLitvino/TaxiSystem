@@ -25,6 +25,9 @@ class Car:
         self.model = model
         self.color = color
 
+    def __str__(self):
+        return f"{self.color.name.lower()} {self.model} '{self.plate_number}' {self.car_class.name.lower()} class"
+
 
 class PrivateCar(Car):
 
