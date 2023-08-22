@@ -1,4 +1,5 @@
 from enum import Enum
+import random
 
 from driver import Driver
 
@@ -24,6 +25,7 @@ class Car:
         self.car_class = car_class
         self.model = model
         self.color = color
+        self.speed = 40 + (60 - 40) * random.random()  # set random speed in range [40 ... 60]
 
     def __str__(self):
         return f"{self.color.name.lower()} {self.model} '{self.plate_number}' {self.car_class.name.lower()} class"
