@@ -26,7 +26,7 @@ class Navigator:
         try:
             return self.map[address]
         except KeyError:
-            raise AddressNotFound(f"{address} is not present for {self.city}")
+            raise AddressNotFound(f"{address} is not present for {self.city.capitalize()}")
 
     def get_all_addresses(self):
         return list(self.map.keys())
