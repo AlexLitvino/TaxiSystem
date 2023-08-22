@@ -53,3 +53,6 @@ client1 = Client(manager, 'Olga', 1995)
 - [ ] Add possibility add/update/remove location (Client could suggest adding, Admin should confirm added, add/update/remove, need a new role for Admin) 
 - [ ] Add 2D map
 - [ ] Add tests
+- [ ] Add account for clients and drivers, payment logic
+- [ ] Add bonus system for Clients based on rode distance
+- [ ] Add rates for Drivers
