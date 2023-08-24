@@ -56,6 +56,7 @@ class Driver(User):
         print(time_to_client)
         print(time_from_client_to_destination)
         time.sleep(time_to_client)
+        print(f"{str(self)} has arrived")
         time.sleep(time_from_client_to_destination)
 
     def complete_order(self, destination):
