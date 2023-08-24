@@ -1,3 +1,5 @@
+"""This module contains Navigator class that responsible for logic performed on city maps"""
+
 import json
 import os
 
@@ -11,29 +13,35 @@ class Navigator:
         self.map = self.download_map()
 
     def download_map(self):
+        """Downloads map from file"""
         map_file_path = os.path.join(maps_path, f'{self.city}.json')
         with open(map_file_path, 'r') as f:
             return json.load(f)
 
     def calculate_distance(self, location1, location2):
+        """Calculates distance between two locations"""
         return abs(self.get_coordinates(location1) - self.get_coordinates(location2))
 
-    def add_location(self, address, coordinates):
+    def add_location(self, location, coordinates):
+        """Adds new location to map"""
         # TODO: should be added to file as well
-        self.map[address] = coordinates
+        self.map[location] = coordinates
 
-    def get_coordinates(self, address):
+    def get_coordinates(self, location):
+        """Returns coordinates for location"""
         try:
-            return self.map[address]
+            return self.map[location]
         except KeyError:
-            raise AddressNotFound(f"{address} is not present for {self.city.capitalize()}")
+            raise AddressNotFoundError(f"{location} is not present for {self.city.capitalize()}")
 
-    def get_all_addresses(self):
+    def get_all_locations(self):
+        """Returns all existing locations on map"""
         return list(self.map.keys())
 
     def is_location_exist(self, location):
+        """Returns True if location exists on map"""
         return location in self.map
 
 
-class AddressNotFound(Exception):
+class AddressNotFoundError(Exception):
     pass

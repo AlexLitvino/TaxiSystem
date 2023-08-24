@@ -1,9 +1,11 @@
+"""This module contains Manager class that responsible for communication between Clients and Drivers"""
+
 import random
 from typing import List
 
 import cars
 from driver import Driver
-from navigator import AddressNotFound
+from navigator import AddressNotFoundError
 from utilities import hours_to_minutes
 
 
@@ -28,15 +30,18 @@ class Manager:
             self._navigator = navigator
             Manager.instance = self
 
-    def move_driver_to_active(self, driver: Driver):
+    def add_driver_to_active(self, driver: Driver):
+        """Adds driver to list of active drivers (those who are ready to take an order)"""
         self.active_drivers.append(driver)
 
     def remove_driver_from_active(self, driver: Driver):
+        """Removed driver from active drivers (when driver serves the order or finishes working)"""
         self.active_drivers.remove(driver)
 
     def looking_for_car(self, departure, desired_car_class: cars.CarClass):
         """Returns the closest driver to destination with specified car class"""
         active_drivers_of_desired_car_class = [driver for driver in self.active_drivers if driver.car.car_class == desired_car_class]
+        # finding the nearest drivers to the client
         found_drivers = [active_drivers_of_desired_car_class[0]]
         min_distance = self._navigator.calculate_distance(found_drivers[0].current_location, departure)
         for driver in active_drivers_of_desired_car_class:
@@ -56,13 +61,16 @@ class Manager:
         return driver
 
     def get_active_drivers(self):
+        """Returns list of drivers ready to take orders"""
         return self.active_drivers
 
     def validate_location(self, location):
+        """Raises AddressNotFoundError exception if location can't be find in city map"""
         if not self._navigator.is_location_exist(location):
-            raise AddressNotFound(f"{location} is not present for {self._navigator.city.capitalize()}")
+            raise AddressNotFoundError(f"{location} is not present for {self._navigator.city.capitalize()}")
 
     def calculate_time_for_distance(self, departure, destination, speed):
+        """Calculates time in minutes need to drive from departure to destination with speed"""
         time_in_hours = self._navigator.calculate_distance(departure, destination) / speed
         return hours_to_minutes(time_in_hours)
 

@@ -1,3 +1,5 @@
+"""Implements classes related to cars"""
+
 from enum import Enum
 import random
 

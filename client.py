@@ -1,7 +1,7 @@
 """This module contains class Client that encapsulates logic for Taxi System client"""
 
 import user
-from navigator import AddressNotFound
+from navigator import AddressNotFoundError
 
 
 class Client(user.User):
@@ -10,11 +10,13 @@ class Client(user.User):
         super().__init__(manager, name, date_of_birth)
         self.current_location = None
 
-    def set_current_location(self, address):
-        self.manager.validate_location(address)
-        self.current_location = address
+    def set_current_location(self, location):
+        """Set current location for Client"""
+        self.manager.validate_location(location)
+        self.current_location = location
 
     def make_order(self, destination, car_class):
+        """Makes order to get to destination on car of car_class level"""
         try:
             self.manager.validate_location(destination)
 
@@ -26,5 +28,5 @@ class Client(user.User):
             else:
                 print("No driver was found:(")
             found_driver.perform_order(self.current_location, destination)
-        except AddressNotFound as e:
+        except AddressNotFoundError as e:
             print(e)

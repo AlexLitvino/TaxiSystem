@@ -1,3 +1,6 @@
+"""This module contains base class User for TaxiSystem users"""
+
+
 class User:
 
     def __init__(self, manager, name, date_of_birth):
