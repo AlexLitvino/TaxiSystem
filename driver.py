@@ -70,6 +70,7 @@ class Driver(User):
         self.take_order()
         self.ride_simulation(departure, destination)
         self.complete_order(destination)
+        print(f"Order for {self.name} is completed")
 
     def add_car(self, plate_number: str, car_class, model: str, color):
         """Adding new car"""
