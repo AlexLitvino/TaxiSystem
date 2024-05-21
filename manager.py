@@ -27,6 +27,7 @@ class Manager:
             self.clients = []
             self.drivers = []
             self.active_drivers: List[Driver] = []
+            self.rides_threads = []
             self._navigator = navigator
             Manager.instance = self
 
@@ -73,6 +74,11 @@ class Manager:
         """Calculates time in minutes need to drive from departure to destination with speed"""
         time_in_hours = self._navigator.calculate_distance(departure, destination) / speed
         return hours_to_minutes(time_in_hours)
+
+    def wait_for_all_rides_to_complete(self):
+        """Waits till all rides will complete"""
+        for thread in self.rides_threads:
+            thread.join()
 
 
 class DriverNotFound(Exception):

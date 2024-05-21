@@ -53,8 +53,8 @@ class Driver(User):
         """Simulates ride from driver current location to client destination"""
         time_to_client = self.calculate_time_to_client(client_departure)
         time_from_client_to_destination = self.calculate_time_from_client_to_destination(client_departure, destination)
-        print(f"Time to get to client: {time_to_client}")
-        print(f"Time to get to destination: {time_from_client_to_destination}")
+        print(f"{self.name} driver: Time to get to client: {time_to_client}")
+        print(f"{self.name} driver: Time to get to destination: {time_from_client_to_destination}")
         time.sleep(time_to_client)
         print(f"{str(self)} has arrived")
         time.sleep(time_from_client_to_destination)
@@ -64,13 +64,12 @@ class Driver(User):
         self.manager.add_driver_to_active(self)
         self.current_location = destination
 
-    # TODO: should be run in separate thread
-    def perform_order(self, departure, destination):
+    def perform_order(self, departure, destination, client_name=None):
         """Performing order by driver: from taking order to its completion"""
         self.take_order()
         self.ride_simulation(departure, destination)
         self.complete_order(destination)
-        print(f"Order for {self.name} is completed")
+        print(f"Order for {client_name} is completed")
 
     def add_car(self, plate_number: str, car_class, model: str, color):
         """Adding new car"""

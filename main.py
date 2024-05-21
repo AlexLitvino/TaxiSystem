@@ -27,7 +27,7 @@ driver4.add_car(plate_number='KJ5367', car_class=CarClass.Economy, model='Audi',
 driver4.current_location = 'Address6'
 driver4.look_for_order()
 
-driver5 = Driver(manager, name='Thomas', date_of_birth=1963, licence_number='HA349382')
+driver5 = Driver(manager, name='Bob', date_of_birth=1963, licence_number='HA349382')
 driver5.add_car(plate_number='KA3901', car_class=CarClass.Economy, model='Honda', color=Color.RED)
 driver5.current_location = 'Address6'
 driver5.look_for_order()
@@ -36,7 +36,7 @@ driver5.look_for_order()
 # creating client
 client1 = Client(manager, 'Olga', 1995)
 client2 = Client(manager, 'Igor', 2000)
-client3 = Client(manager, 'Andrew', 2000)
+client3 = Client(manager, 'Barry', 2000)
 
 
 # Application flow
@@ -61,6 +61,8 @@ print()
 client3.set_current_location("Address6")
 client3.make_order("Address8", CarClass.Economy)
 print()
+
+manager.wait_for_all_rides_to_complete()
 
 
 # Show active drivers after making orders

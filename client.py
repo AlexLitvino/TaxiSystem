@@ -28,6 +28,13 @@ class Client(user.User):
                       f"{found_driver.car.color.name} {found_driver.car.model} {found_driver.car.plate_number}")
             else:
                 print("No driver was found:(")
-            found_driver.perform_order(self.current_location, destination)
+            #found_driver.perform_order(self.current_location, destination)
+            #print(f"Order for {self.name} is completed")
+
+            from threading import Thread
+            thread = Thread(target=found_driver.perform_order, args=(self.current_location, destination, self.name))
+            self.manager.rides_threads.append(thread)
+            thread.start()
+
         except AddressNotFoundError as e:
             print(e)
