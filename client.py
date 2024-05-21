@@ -17,6 +17,7 @@ class Client(user.User):
 
     def make_order(self, destination, car_class):
         """Makes order to get to destination on car of car_class level"""
+        print(f"{self.name} ordering taxi of {car_class.name} class from {self.current_location} to {destination}")
         try:
             self.manager.validate_location(destination)
 

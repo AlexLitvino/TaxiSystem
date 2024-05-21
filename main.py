@@ -42,6 +42,7 @@ client3 = Client(manager, 'Andrew', 2000)
 # Application flow
 
 # Show active drivers before any orders
+print("Drivers before making orders:")
 for driver in manager.get_active_drivers():
     print(driver)
 print()

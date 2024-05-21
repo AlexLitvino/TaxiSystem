@@ -53,8 +53,8 @@ class Driver(User):
         """Simulates ride from driver current location to client destination"""
         time_to_client = self.calculate_time_to_client(client_departure)
         time_from_client_to_destination = self.calculate_time_from_client_to_destination(client_departure, destination)
-        print(time_to_client)
-        print(time_from_client_to_destination)
+        print(f"Time to get to client: {time_to_client}")
+        print(f"Time to get to destination: {time_from_client_to_destination}")
         time.sleep(time_to_client)
         print(f"{str(self)} has arrived")
         time.sleep(time_from_client_to_destination)
