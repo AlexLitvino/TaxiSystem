@@ -46,6 +46,11 @@ Create clients:
 client1 = Client(manager, 'Olga', 1995)
 ```
 
+## Class diagram
+
+![Class diagram for Taxi System](diagram/TaxiSystem.drawio.png)
+
+
 ## TODOs
 - [ ] Add possibility to have several cars for driver
 - [ ] What if several drivers will be found?
